@@ -9,31 +9,35 @@
           class="btn-close box-content w-4 h-4 p-1 text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
           data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+      <form id="form_list" action="/add/data" method="POST" enctype="multipart/form-data">
       <div class="modal-body relative p-4">
         {{-- kalau mau make yield batasnya dari sini --}}
+          @csrf
+        
         <div class="mb-4">
           <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
             Nama lengkap
           </label>
-          <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Nama lengkap" type="text" placeholder="Nama lengkap">
+          <input name="nama_lengkap" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Nama_lengkap" type="text" placeholder="Nama lengkap" required>
         </div>
         <div class="mb-4">
           <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-            Kelas dan jurusan
+            Tamu dari
           </label>
-          <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Kelas dan jurusan" type="text" placeholder="11 PPLG 11">
+          <input name="asal_tamu" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="asal_tamu" type="text" placeholder="Ex. SMK 4/Pt. Mencari jodoh" required>
         </div>
         <div class="mb-4">
           <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-            Nama guru
+            Ingin menemui
           </label>
-          <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id= Nama guru" type="text" placeholder="Nama guru">
+          <input name="menemui" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id= "menemui" type="text" placeholder="Ex. Pak John" required>
         </div>
         <div class="mb-4">
           <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
             Sertakan alasan
           </label>
-          <textarea placeholder="Alasan saya adalah..." class="resize-none rounded-md shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+          <textarea name="alasan" placeholder="Alasan saya adalah..." class="resize-none rounded-md shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required></textarea>
+          <input type="hidden" id="photoInput" name="foto_tamu">
         </div>
         {{-- sampek sini --}}
       </div>
@@ -55,7 +59,7 @@
           transition
           duration-150
           ease-in-out" data-bs-dismiss="modal"  onclick="modalInput()">Tutup</button>
-        <button type="button" class="px-6
+        <button type="button" id="lanjutBtn" data-bs-dismiss="modal" onclick="modalCam()" class="px-6 
           py-2.5
           bg-blue-600
           text-white
@@ -71,8 +75,9 @@
           transition
           duration-150
           ease-in-out
-          ml-1">Kirim</button>
+          ml-1">Lanjut</button>
       </div>
+    </form>
     </div>
   </div>
 </div>

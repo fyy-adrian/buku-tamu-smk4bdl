@@ -9,32 +9,24 @@
             class="btn-close box-content w-4 h-4 p-1 text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
             data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body relative p-4">
+        <div class="modal-body relative p-4 h-[400px] overflow-y-auto">
             {{-- kalau mau make yield batasnya dari sini --}}
             <div class="p-4 md:p-5">
-                <ol class="relative border-s border-gray-200 dark:border-gray-600 ms-3.5 mb-4 md:mb-5 text-black">                  
+                @if(!$listTamu->isEmpty())
+                <ol class="relative border-s border-gray-200 ms-3.5 mb-4 md:mb-5 text-black">    
+                    @foreach ($listTamu as $item)
                     <li class="mb-10 ms-8">            
-                        <span class="absolute flex items-center justify-center w-6 h-6 bg-gray-100 rounded-full -start-3.5 ring-8 ring-white dark:ring-gray-700 dark:bg-gray-600 text-black">
-                            1
+                        <span class="absolute flex items-center justify-center w-6 h-6 bg-gray-100 rounded-full -start-3.5 ring-8 ring-white text-black">
+                            {{$loop->index + 1}}
                         </span>
-                        <h3 class="flex items-start mb-1 text-lg font-semibold text-gray-900 dark:text-white">Pak salam</h3>
-                        <p>Ingin menemui prikitiw</p>
+                        <h3 class="flex items-start mb-1 text-lg font-semibold text-gray-900">{{$item->nama_lengkap}}</h3>
+                        <p>Ingin menemui {{$item->menemui}}</p>
                     </li>
-                    <li class="mb-10 ms-8">            
-                        <span class="absolute flex items-center justify-center w-6 h-6 bg-gray-100 rounded-full -start-3.5 ring-8 ring-white dark:ring-gray-700 dark:bg-gray-600 text-black">
-                            2
-                        </span>
-                        <h3 class="flex items-start mb-1 text-lg font-semibold text-gray-900 dark:text-white">Pak salam</h3>
-                        <p>Ingin menemui prikitiw</p>
-                    </li>
-                    <li class="mb-10 ms-8">            
-                        <span class="absolute flex items-center justify-center w-6 h-6 bg-gray-100 rounded-full -start-3.5 ring-8 ring-white dark:ring-gray-700 dark:bg-gray-600 text-black">
-                            3
-                        </span>
-                        <h3 class="flex items-start mb-1 text-lg font-semibold text-gray-900 dark:text-white">Pak salam</h3>
-                        <p>Ingin menemui prikitiw</p>
-                    </li>
+                    @endforeach              
                 </ol>
+                @else
+                <p class="text-center font-bold text-2xl">Belum ada tamu hari ini.</p>
+                @endif
             </div>
             {{-- kalau mau make yield batasnya dari sini --}}
         </div>
