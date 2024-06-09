@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('img/favicon.png')}}">
-    @vite('resources/css/app.css')
+    {{-- @vite('resources/css/app.css') --}}
+    <link rel="stylesheet" href="{{asset('css/build.css')}}">
     <title>{{ Request::is('admin') ? 'Dashboard Admin' : 'Buku Tamu' }}</title>
 </head>
 

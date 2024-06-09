@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\DataTamu;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HomeControler extends Controller
 {
     public function index(){
-        return view('home',[
-            'listTamu' => DataTamu::all(),
+        $today = Carbon::today();
+        return view('home', [
+            'listTamu' => DataTamu::whereDate('created_at', $today)->get()
         ]);
     }
 }

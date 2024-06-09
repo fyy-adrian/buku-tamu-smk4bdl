@@ -5,7 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
-    @vite('resources/css/app.css')
+    {{-- @vite('resources/css/app.css') --}}
+    <link rel="stylesheet" href="{{asset('css/build.css')}}">
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('img/favicon.png')}}">
     <title>Dashboard Admin</title>
 </head>
@@ -74,11 +75,11 @@
             </table>
         </div>
         <div class="mt-6 flex gap-3 justify-end items-end">
-            <form action="{{ route('data-tamu.export-all') }}" method="GET">
+            <form action="{{ route('data-tamu.export-all') }}" method="POST">
                 @csrf
                 <button type="submit" class="px-6 py-2 text-sm font-semibold text-white bg-purple-600 rounded-md">Unduh semua data</button>
             </form>
-            <form action="{{ route('data-tamu.export-month') }}" method="GET">
+            <form action="{{ route('data-tamu.export-month') }}" method="POST">
                 @csrf
                 <button type="submit" class="px-6 py-2 text-sm font-semibold text-white bg-purple-600 rounded-md">Unduh data bulan ini</button>
             </form>

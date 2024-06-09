@@ -18,8 +18,8 @@ Route::get('/admin',[DashboardController::class,'index'])->middleware(CheckLogin
 
 Route::post('/admin', [DashboardController::class, 'filter'])->middleware(CheckLogin::class)->name('data-tamu.filter');
 
-Route::get('data-tamu/export-all', [DashboardController::class, 'exportAll'])->name('data-tamu.export-all');
-Route::get('data-tamu/export-month', [DashboardController::class, 'exportMonth'])->name('data-tamu.export-month');
+Route::post('data-tamu/export-all', [DashboardController::class, 'exportAll'])->name('data-tamu.export-all');
+Route::post('data-tamu/export-month', [DashboardController::class, 'exportMonth'])->name('data-tamu.export-month');
 
 
 Route::get('/login', function () {
