@@ -29,10 +29,10 @@
           <p class="uppercase text-gray-500 md:mb-6">Social</p>
           <ul class="list-reset mb-6">
             <li class="mt-2 inline-block mr-2 md:block md:mr-0">
-              <a href="#" class="no-underline hover:underline text-gray-800 hover:text-purple-600">Facebook</a>
+              <a href="https://www.tiktok.com/@smknegeri4bandarlampung" class="no-underline hover:underline text-gray-800 hover:text-purple-600">Tiktok</a>
             </li>
             <li class="mt-2 inline-block mr-2 md:block md:mr-0">
-              <a href="#" class="no-underline hover:underline text-gray-800 hover:text-purple-600">Linkedin</a>
+              <a href="https://www.instagram.com/smknegeri4bandarlampung/?hl=en" class="no-underline hover:underline text-gray-800 hover:text-purple-600">Instagram</a>
             </li>
             <li class="mt-2 inline-block mr-2 md:block md:mr-0">
               <a href="#" class="no-underline hover:underline text-gray-800 hover:text-purple-600">Twitter</a>
@@ -43,7 +43,7 @@
           <p class="uppercase text-gray-500 md:mb-6">Company</p>
           <ul class="list-reset mb-6">
             <li class="mt-2 inline-block mr-2 md:block md:mr-0">
-              <a href="#" class="no-underline hover:underline text-gray-800 hover:text-purple-600">Official Blog</a>
+              <a href="https://smkn4-bdl.sch.id/" class="no-underline hover:underline text-gray-800 hover:text-purple-600">Official Blog</a>
             </li>
             <li class="mt-2 inline-block mr-2 md:block md:mr-0">
               <a href="#" class="no-underline hover:underline text-gray-800 hover:text-purple-600">About Us</a>
