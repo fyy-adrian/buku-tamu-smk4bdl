@@ -15,11 +15,13 @@ Route::get('/', [HomeControler::class,'index'])->name('home');
 Route::post('/add/data',[ListTamuController::class,'addData']);
 
 Route::get('/admin',[DashboardController::class,'index'])->middleware(CheckLogin::class)->name('dash');
+Route::get('/admin/delete',[DashboardController::class,'delete_data'])->middleware(CheckLogin::class);
 
 Route::post('/admin', [DashboardController::class, 'filter'])->middleware(CheckLogin::class)->name('data-tamu.filter');
 
 Route::post('data-tamu/export-all', [DashboardController::class, 'exportAll'])->name('data-tamu.export-all');
 Route::post('data-tamu/export-month', [DashboardController::class, 'exportMonth'])->name('data-tamu.export-month');
+Route::post('data-tamu/export-date', [DashboardController::class, 'exportDate'])->name('data-tamu.export-date');
 
 
 Route::get('/login', function () {

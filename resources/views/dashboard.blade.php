@@ -32,6 +32,8 @@
                 <button type="submit" class="px-6 py-2 w-20 h-10 text-sm font-semibold text-white bg-purple-600 mr-2 rounded-md">Filter</button>
         </form>
 
+        <p class="mx-2 text-xl">*Default hanya menampilkan tamu bulan ini.</p>
+        <p class="mx-2 text-xl">*Silahkan filter jika ingin melihat data per hari.</p>
 
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500">
@@ -52,6 +54,12 @@
                         <th scope="col" class="px-6 py-3">
                             Alasan
                         </th>
+                        <th scope="col" class="px-6 py-3">
+                            Tanggal
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Action
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -65,6 +73,10 @@
                             <td class="px-6 py-4">{{ $tamu->asal_tamu }}</td>
                             <td class="px-6 py-4">{{ $tamu->menemui }}</td>
                             <td class="px-6 py-4">{{ $tamu->alasan }}</td>
+                            <td class="px-6 py-4">{{ \Carbon\Carbon::parse($tamu->created_at)->format('d-m-Y') }}</td>
+                            <td class="px-6 py-4">
+                                <a class="text-white bg-red-500 rounded-lg p-2 hover:bg-red-600" href="/admin/delete?id={{ $tamu->id }}" onclick="return confirm('Are you sure you want to delete this data?')">Delete data</a>
+                            </td>
                         </tr>
                     @empty
                         <tr>
@@ -74,14 +86,44 @@
                 </tbody>
             </table>
         </div>
-        <div class="mt-6 flex gap-3 justify-end items-end">
+        <div class="mt-6 flex gap-3 justify-end text-end">
+            <form class="flex flex-row gap-2" action="{{ route('data-tamu.export-date') }}" method="POST">
+                @csrf
+                <p class="px-2 text-lg">Dari :</p>
+                <div class="relative max-w-sm mb-6">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                        </svg>
+                    </div>
+                    <input name="startDate" datepicker type="text" autocomplete="off"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5"
+                        placeholder="Select date">
+                    </div>
+                <p class="px-2 text-lg">Sampai :</p>
+                <div class="relative max-w-sm mb-6">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                        </svg>
+                    </div>
+                    <input name="endDate" datepicker type="text" autocomplete="off"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5"
+                        placeholder="Select date">
+                    </div>
+                    <button type="submit" class="px-6 py-2 w-28 h-10 text-sm font-semibold text-white bg-purple-600 mr-2 rounded-md">Download</button>
+            </form>
             <form action="{{ route('data-tamu.export-all') }}" method="POST">
                 @csrf
                 <button type="submit" class="px-6 py-2 text-sm font-semibold text-white bg-purple-600 rounded-md">Unduh semua data</button>
             </form>
             <form action="{{ route('data-tamu.export-month') }}" method="POST">
                 @csrf
-                <button type="submit" class="px-6 py-2 text-sm font-semibold text-white bg-purple-600 rounded-md">Unduh data bulan ini</button>
+                <button type="submit" class="px-6 py-2 text-sm font-semibold text-white bg-purple-600 rounded-md">Unduh data bulan {{date('M')}}</button>
             </form>
         </div>
     </div>
@@ -95,6 +137,7 @@
 
         let emptyData = {{ session()->has('emptyData') ? 1 : 0 }}
         let emptyDataMsg = @json(session('emptyData'))
+        
 
         const Toast = Swal.mixin({
             toast: true,
@@ -112,6 +155,16 @@
             Toast.fire({
                 icon: 'error',
                 title: emptyDataMsg,
+            })
+        }
+
+        let Success = {{ session()->has('Success') ? 1 : 0 }}
+        let SuccessMsg = @json(session('Success'))
+
+        if (Success) {
+            Toast.fire({
+                icon: 'success',
+                title: SuccessMsg,
             })
         }
     </script>
